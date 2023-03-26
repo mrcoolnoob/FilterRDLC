@@ -2,4 +2,8 @@
 
 //This code appears to be written in Microsoft's SQL Server Reporting Services (SSRS) expression language, which is used to create expressions for reports. The expression in the code is a conditional statement that checks if the decimal portion of the value of the "Miles" field is less than or equal to 0.001. If the condition is true, the expression returns the ceiling value of the "Miles" field with ".000" concatenated to it. If the condition is false, the expression formats the "Miles" field with three decimal places.
 
-=IIf(Fields!Miles.Value - Math.Floor(Fields!Miles.Value) <= 0.001, Math.Ceiling(Fields!Miles.Value) & ".000", Format(Fields!Miles.Value, "0.000"))
+=IIf(Fields!Miles.Value - Math.Floor(Fields!Miles.Value) <= 0.001, Math.Ceiling(Fields!Miles.Value) & ".000", Format(Fields!Miles.Value, "0.000")) // wrong one
+
+=IIf( Fields!Miles.Value + 0.001 >= Math.Ceiling(Fields!Miles.Value),
+    Math.Ceiling(Fields!Miles.Value) & ".000",
+    Format(Fields!Miles.Value, "0.000")) // Right one
