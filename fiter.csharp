@@ -7,3 +7,16 @@
 =IIf( Fields!Miles.Value + 0.001 >= Math.Ceiling(Fields!Miles.Value),
     Math.Ceiling(Fields!Miles.Value) & ".000",
     Format(Fields!Miles.Value, "0.000")) // Right one
+
+
+// The following does work
+
+=IIF(InStr(CStr(Fields!YourValue.Value), ".") > 0,
+     Left(CStr(Fields!YourValue.Value), InStr(CStr(Fields!YourValue.Value), ".") - 1) + "." +
+     IIF(Len(Substring(CStr(Fields!YourValue.Value), InStr(CStr(Fields!YourValue.Value), ".") + 1, 7)) < 7,
+         Substring(CStr(Fields!YourValue.Value), InStr(CStr(Fields!YourValue.Value), ".") + 1, 7) +
+         StrDup(7 - Len(Substring(CStr(Fields!YourValue.Value), InStr(CStr(Fields!YourValue.Value), ".") + 1, 7)), "0"),
+         Substring(CStr(Fields!YourValue.Value), InStr(CStr(Fields!YourValue.Value), ".") + 1, 7)
+     ),
+     CStr(Fields!YourValue.Value) + ".0000000"
+)
